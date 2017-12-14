@@ -2,14 +2,16 @@
 <html>
 <head>
 <title>ERROR</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 	<script src="https://unpkg.com/vue"></script>
+  	<script src="https://unpkg.com/vue-resource"></script>
 <style>
 body {
 	background-color:rgb(27,37,36);
     margin:0;
     font-family:'arial';
 }
-#errorcode {
+#errcode {
 	background-color:rgb(53,63,62);
 	text-align:center;
 	width:100%;
@@ -18,7 +20,7 @@ body {
 	line-height:40px;
 	overflow: hidden;
 }
-#errorcode > h1 {
+#errcode > h1 {
 	color:lightgray;
 	font-size:50px;
 	animation: 0.5s ease-out 0s 1 slideInFromBottom;
@@ -27,7 +29,7 @@ body {
   0% {transform: translateY(300%);}
   100% {transform: translateY(0);}
 }
-#errormsg {
+#errmsg {
 	text-align:center;
 	font-size:18px;
 	width:100%;
@@ -42,11 +44,12 @@ body {
 </head>
 
 <body>
-<div id="errorcode"></div>
-<div id="errormsg">ERROR</div>
+	<div id="err">
+		<div id="errcode" v-model="errcode"><h1> {{ errcode }} </h1></div>
+		<div id="errmsg" v-model="errmsg">{{ errmsg }}</div>
+	</div>
 
 </body>
-
-<script type="text/javascript" src="/javascript/error.js"></script>
+  <script type="text/javascript" src="/javascript/error.js"></script>
 
 </html>
