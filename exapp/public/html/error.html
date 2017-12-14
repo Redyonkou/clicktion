@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ERROR</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+body {
+	background-color:rgb(27,37,36);
+    margin:0;
+    font-family:'arial';
+}
+#errorcode {
+	background-color:rgb(53,63,62);
+	text-align:center;
+	width:100%;
+	height:100px;
+	display:block;
+	line-height:40px;
+	overflow: hidden;
+}
+#errorcode > h1 {
+	color:lightgray;
+	font-size:50px;
+	animation: 0.5s ease-out 0s 1 slideInFromBottom;
+}
+@keyframes slideInFromBottom {
+  0% {transform: translateY(300%);}
+  100% {transform: translateY(0);}
+}
+#errormsg {
+	text-align:center;
+	font-size:18px;
+	width:100%;
+	height:50px;
+	display:block;
+	color:rgb(50,50,50);
+	line-height:50px;
+	box-shadow: 0 0 5px rgb(53,63,62);
+	background-color:rgb(210,116,25);
+}
+</style>
+</head>
+
+<body>
+<div id="errorcode"></div>
+<div id="errormsg">ERROR</div>
+
+</body>
+
+<script type="text/javascript" src="/javascript/error.js"></script>
+
+</html>
