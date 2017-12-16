@@ -1,0 +1,64 @@
+/* Zur Erstellung von Links im Navigationsbalken
+bitte folgendes in die html der jeweiligen Seite am body-Anfang
+einfügen und für jeden Link ein eigenes Listenelement erstellen: 	
+
+<div id="navbar">
+		<ul>
+			<li><a style="width= "></a></li>
+		</ul>
+	</div>
+
+und die Breite des Anchors an den Textinhalt anpassen
+
+Den restlichen Inhalt der jeweiligen Seite in 
+
+	<div id='body_div'>
+	</div>
+
+packen
+	*/
+
+/*TODO: -Listenelemente schöner auf dem Balken verteilen
+ -Wahrscheinlich auch noch andere Sachen
+*/
+
+
+body {
+	background-color: rgb(53,63,62);
+}
+
+#navbar {
+	margin-left: -8px;
+	border: 0;
+	border-radius: 0px;
+    top: 0;
+ 	position: fixed;
+    width: 100%;
+    z-index: 100;
+    display:flex;
+}
+
+#navbar ul {
+	background-color: rgb(201,212,210);
+	list-style-type: none;
+	margin: 0;
+	padding: 2px;
+	flex: 1;
+	display:flex;
+}
+
+#navbar li{flex:1;}
+
+#navbar a {
+	display: block;
+	margin: auto;
+	padding: 2px 20px;
+	width: 70px;
+	text-decoration: none;
+	color: rgb(241,149,0);
+	background-color: rgb(27,37,36);
+	font-size: 30px;
+	text-align: center;
+}
+
+#body_div { margin-top: 42px; }
