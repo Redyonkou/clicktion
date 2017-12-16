@@ -4,7 +4,16 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-	res.status(200).sendFile(__dirname + '/public/html/index.html');});
+	res.status(200).sendFile(__dirname + '/public/html/home.html');
+})
+
+app.get('/login', (req, res) => {
+	res.status(200).sendFile(__dirname + '/public/html/index.html');
+});
+
+app.get('/semester', (req, res) => {
+	res.status(200).send(calcCurrentSemester());
+});
 
 // always last get-handler! 
 app.get('*', (req, res) => {
@@ -20,3 +29,13 @@ app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
 
+function calcCurrentSemester() {
+	var date = new Date();
+	var result = date.getFullYear();
+	if (date.getMonth() > 6) {
+		result += " WS";
+	} else {
+		result += " SS";
+	}
+	return result;
+}
