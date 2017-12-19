@@ -2,7 +2,7 @@ var app = new Vue ({
 el: "#newlecture",
 data: {
 semester: "",
-professor: "riko",
+professor: "",
 id: "",
 course: "",
 fullname: "",
