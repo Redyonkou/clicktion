@@ -51,7 +51,7 @@ app.get('/db/lectures', (req, res) => {
 	con.then(() => {
 		return db.query("SELECT * FROM lectures ORDER BY professor, id");
 	}).then((result) => {
-		var obj = JSON.stringify(result[0]);
+		var obj = JSON.parse(JSON.stringify(result[0]));
 		res.status(200).send(obj);
 	}).catch((err) => {
 		console.log(err);
@@ -74,7 +74,7 @@ app.get('/db/questions', (req, res) => {
 	con.then(() => {
 		return db.query("SELECT * FROM questions ORDER BY state, date");
 	}).then((result) => {
-		var obj = JSON.stringify(result[0]);
+		var obj = JSON.parse(JSON.stringify(result[0]));
 		res.status(200).send(obj);
 	}).catch((err) => {
 		console.log(err);
