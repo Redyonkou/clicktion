@@ -14,6 +14,10 @@ app.get('/login', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/index.html');
 });
 
+app.get('/new-lecture', (req, res) => {
+	res.status(200).sendFile(__dirname + '/public/html/new_lecture.html');
+});
+
 app.get('/semester', (req, res) => {
 	res.status(200).send(tools.calcSemester());
 });
@@ -21,7 +25,7 @@ app.get('/semester', (req, res) => {
 // always last get-handler! 
 app.get('*', (req, res) => {
  	res.status(404).sendFile(__dirname + '/public/html/error.html');
-}); 
+});
 
 // always last post-handler! 
 app.post('*', (req, res) => {
