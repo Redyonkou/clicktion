@@ -1,4 +1,7 @@
 var express = require('express');
+const mysql = require('mysql2/promise')
+var bodyParser = require('body-parser')
+var tools = require('./tools');
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
@@ -12,7 +15,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/semester', (req, res) => {
-	res.status(200).send(calcCurrentSemester());
+	res.status(200).send(tools.calcSemester());
 });
 
 // always last get-handler! 
@@ -26,16 +29,5 @@ app.post('*', (req, res) => {
 }); 
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('server listening on port 3000!');
 });
-
-function calcCurrentSemester() {
-	var date = new Date();
-	var result = date.getFullYear();
-	if (date.getMonth() > 6) {
-		result += " WS";
-	} else {
-		result += " SS";
-	}
-	return result;
-}
