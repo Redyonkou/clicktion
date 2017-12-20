@@ -13,11 +13,9 @@ con = mysql.createConnection({
   	database: 'clicktiondb'
 }).then((connection) => {
 	db = connection;
-	console.log("\x1b[32mconnection to database was successful");
-	console.log("\x1b[37m", "");	
+	console.log("\x1b[31m%s\x1b[0m", "connection to mysql-clicktion was successful");
 }).catch((err) => {
-	console.log("\x1b[31mconnection to database failed!");
-	console.log("\x1b[37m", "");	
+	console.log("\x1b[31m%s\x1b[0m", "connection to mysql-clicktion failed!");
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -52,7 +50,7 @@ app.get('/db/lectures', (req, res) => {
 		return db.query("SELECT * FROM lectures ORDER BY professor, id");
 	}).then((result) => {
 		var obj = JSON.parse(JSON.stringify(result[0]));
-		res.status(200).send(obj);
+		res.status(200).json(obj);
 	}).catch((err) => {
 		console.log(err);
 		res.status(400).send();
@@ -75,7 +73,7 @@ app.get('/db/questions', (req, res) => {
 		return db.query("SELECT * FROM questions ORDER BY state, date");
 	}).then((result) => {
 		var obj = JSON.parse(JSON.stringify(result[0]));
-		res.status(200).send(obj);
+		res.status(200).json(obj);
 	}).catch((err) => {
 		console.log(err);
 		res.status(400).send();
