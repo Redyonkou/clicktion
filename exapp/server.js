@@ -1,11 +1,13 @@
-var express = require('express');
+const express = require('express');
 const mysql = require('mysql2/promise');
-var bodyParser = require('body-parser');
-var tools = require('./tools');
-var schedule = require('node-schedule');
+const bodyParser = require('body-parser');
+const tools = require('./tools');
+const schedule = require('node-schedule');
 const host = 'localhost';
 var db, con;
 var app = express();
+
+/*----------------------------------------------------------*/
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -20,13 +22,14 @@ con = mysql.createConnection({
   	database: 'clicktiondb'
 }).then((connection) => {
 	db = connection;
-	console.log("\x1b[32m%s\x1b[0m", "connection to mysql-clicktion was successful");
+	console.log("\x1b[32m%s\x1b[0m", "connection to mysql-container was successful");
 }).catch((err) => {
-	console.log("\x1b[31m%s\x1b[0m", "connection to mysql-clicktion failed!");
+	console.log("\x1b[31m%s\x1b[0m", "connection to mysql-container failed!");
 });
 
- 
-var j = schedule.scheduleJob('* * * * 8 *', () => {resetDatabase()});
+var sched = schedule.scheduleJob('* * * * 8 *', () => {resetDatabase()});
+
+/*----------------------------------------------------------*/
 
 app.use(express.static(__dirname + '/public'));
 
@@ -77,7 +80,7 @@ app.get('/db/lectures', (req, res) => {
 */
 app.get('/db/lectures/:name', (req, res) => {
 	con.then(() => {
-		return db.query("SELECT * FROM lectures WHERE professor=? ORDER BY state, id DESC", [req.params.name]);
+		return db.query("SELECT * FROM lectures WHERE professor=? ORDER BY state DESC, id", [req.params.name]);
 	}).then((result) => {
 		var obj = result[0];
 		res.status(200).json(obj);
@@ -85,9 +88,8 @@ app.get('/db/lectures/:name', (req, res) => {
 		console.log(err);
 		res.status(400).send();
 		throw (err);
-	});  
+	});
 });
-
 
 /*
 /* function: get all questions
@@ -184,9 +186,9 @@ app.post('/db/questions/stop', (req, res) => {
 /*	PUT: server/db/lectures/new with body "name=<professor_name>&id=<lecture_id>&course=<course_name>&full=<fullname>"
 /*	Response: no body, 200 Ok
 */
-app.post('/db/lectures/new', (req, res) => {
+app.put('/db/lectures/new', (req, res) => {
 	var id = req.body.id.toLowerCase(); var name = req.body.name.toLowerCase(); var course = req.body.course.toLowerCase(); 
-	var fullname = req.body.full.toLowerCase(); var semester = tools.calcSemester();
+	var fullname = req.body.full; var semester = tools.calcSemester();
 	con.then(() => {
 		return db.query("INSERT INTO `lectures` (`id`, `professor`, `course`, `semester`, `fullname`) VALUES (?,?,?,?,?);", [id,name,course,semester,fullname]);
 	}).then((result) => {
@@ -206,7 +208,7 @@ app.post('/db/lectures/new', (req, res) => {
 /*	PUT: server/db/questions/new with body "name=<professor_name>&id=<lecture_id>&course=<course_name>&title=<title>&type=<type>&correct=<correct_answer>&a=<Answer_A>&b=<Answer_B>&c=<Answer_C>&d=<Answer_D>"
 /*	Response: no body, 200 Ok
 */
-app.post('/db/questions/new', (req, res) => {
+app.put('/db/questions/new', (req, res) => {
 	var id = req.body.id.toLowerCase(); var name = req.body.name.toLowerCase(); var course = req.body.course.toLowerCase(); 
 	var semester = tools.calcSemester(); var title = req.body.title;
 	var invite = tools.generateKey(); var date = new Date(); var type = req.body.type; var correct = req.body.correct;
@@ -242,7 +244,6 @@ function resetDatabase() {
 
 // always last get-handler! 
 app.get('*', (req, res) => {
-	console.log("got 404");
  	res.status(404).sendFile(__dirname + '/public/html/error.html');
 });
 

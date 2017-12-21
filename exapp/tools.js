@@ -28,5 +28,5 @@ module.exports = {
 
 function generateRandomChar(){
 	var allPossibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
-	return allPossibleChars[Math.floor(Math.random() * (36))];
+	return allPossibleChars[Math.round(Math.random() * (36))];
 }
