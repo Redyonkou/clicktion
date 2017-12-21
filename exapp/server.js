@@ -1,24 +1,92 @@
 var express = require('express');
+const mysql = require('mysql2/promise');
+var bodyParser = require('body-parser');
+var tools = require('./tools');
+const host = 'localhost';
+var db, con;
 var app = express();
+
+con = mysql.createConnection({
+	host: host,
+	user: 'user',
+	password: 'dbpassword',
+  	database: 'clicktiondb'
+}).then((connection) => {
+	db = connection;
+	console.log("\x1b[31m%s\x1b[0m", "connection to mysql-clicktion was successful");
+}).catch((err) => {
+	console.log("\x1b[31m%s\x1b[0m", "connection to mysql-clicktion failed!");
+});
 
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/home.html');
-})
+});
 
 app.get('/login', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/index.html');
 });
 
-app.get('/semester', (req, res) => {
-	res.status(200).send(calcCurrentSemester());
+app.get('/new-lecture', (req, res) => {
+	res.status(200).sendFile(__dirname + '/public/html/new_lecture.html');
 });
+
+app.get('/semester', (req, res) => {
+	res.status(200).send(tools.calcSemester());
+});
+
+/*----------------------------------------------------------*/
+
+/*
+/* function: get all lectures
+/* GET: <server>/db/lectures
+/* Response: [{"id":"<lecture_id>","course":"<course_name>","semester":"<semester>", 
+/* professor="<professor>", "fullname":"<lecture_name>"}, ...]
+/* Expected Code: 200 Ok
+*/
+app.get('/db/lectures', (req, res) => {
+	con.then(() => {
+		return db.query("SELECT * FROM lectures ORDER BY professor, id");
+	}).then((result) => {
+		var obj = JSON.parse(JSON.stringify(result[0]));
+		res.status(200).json(obj);
+	}).catch((err) => {
+		console.log(err);
+		res.status(400).send();
+		throw (err);
+	});  
+});
+
+/*
+/* function: get all questions
+/* GET: <server>/db/questions
+/* Response: [{"id":"<lecture_id>","course":"<course_name>","semester":"<semester>", 
+/* professor="<professor>", "title":"<actual_question>","type":"<type>","state":"<state>",
+/* "date":"<creation_date>","invite":"<question_key>", "correct":"<correct_answer>","answer_A":"<Answer_A>", 
+/* "answer_B":"<Answer_B>", "answer_C":"<Answer_C>", 
+/* "answer_D":"<Answer_D>"}, ...]
+/* Expected Code: 200 Ok
+*/
+app.get('/db/questions', (req, res) => {
+	con.then(() => {
+		return db.query("SELECT * FROM questions ORDER BY state, date");
+	}).then((result) => {
+		var obj = JSON.parse(JSON.stringify(result[0]));
+		res.status(200).json(obj);
+	}).catch((err) => {
+		console.log(err);
+		res.status(400).send();
+		throw (err);
+	});  
+});
+
+/*----------------------------------------------------------*/
 
 // always last get-handler! 
 app.get('*', (req, res) => {
  	res.status(404).sendFile(__dirname + '/public/html/error.html');
-}); 
+});
 
 // always last post-handler! 
 app.post('*', (req, res) => {
@@ -26,16 +94,5 @@ app.post('*', (req, res) => {
 }); 
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('server listening on port 3000!');
 });
-
-function calcCurrentSemester() {
-	var date = new Date();
-	var result = date.getFullYear();
-	if (date.getMonth() > 6) {
-		result += " WS";
-	} else {
-		result += " SS";
-	}
-	return result;
-}
