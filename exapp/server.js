@@ -51,16 +51,19 @@ app.get('/semester', (req, res) => {
 
 /*----------------------------------------------------------*/
 
-/*
-/* function: get all lectures
-/* GET: <server>/db/lectures
-/* Response: [{"id":"<lecture_id>","course":"<course_name>","semester":"<semester>", 
-/* professor="<professor>", "fullname":"<lecture_name>"}, ...]
+/**
+/* function: get all surveys
+/* GET: <server>/db/all
+/* Response: [{ creator="<your_name>", "title":"<actual_question>",
+/* "type":"<type>","state":"<state>", "date":"<creation_date>",
+/* "invite":"<question_key>", "correct":"<correct_answer>","answer_A":"<Answer_A>", 
+/* "answer_B":"<Answer_B>", "answer_C":"<Answer_C>", 
+/* "answer_D":"<Answer_D>"}, ...]
 /* Expected Code: 200 Ok
 */
-app.get('/db/lectures', (req, res) => {
+app.get('/db/all', (req, res) => {
 	con.then(() => {
-		return db.query("SELECT * FROM lectures ORDER BY professor, id");
+		return db.query("SELECT * FROM surveys ORDER BY creator, title");
 	}).then((result) => {
 		var obj = result[0];
 		res.status(200).json(obj);
@@ -71,16 +74,19 @@ app.get('/db/lectures', (req, res) => {
 	});  
 });
 
-/*
-/* function: get all lectures by name
-/* GET: <server>/db/lectures
-/* Response: [{"id":"<lecture_id>","course":"<course_name>","semester":"<semester>", 
-/* professor="<professor>", "fullname":"<lecture_name>"}, ...]
+/**
+/* function: get all surveys by creator
+/* GET: server/db/<your_name>
+/* Response: [{ creator="<your_name>", "title":"<actual_question>",
+/* "type":"<type>","state":"<state>", "date":"<creation_date>",
+/* "invite":"<question_key>", "correct":"<correct_answer>","answer_A":"<Answer_A>", 
+/* "answer_B":"<Answer_B>", "answer_C":"<Answer_C>", 
+/* "answer_D":"<Answer_D>"}, ...]
 /* Expected Code: 200 Ok
 */
-app.get('/db/lectures/:name', (req, res) => {
+app.get('/db/:name', (req, res) => {
 	con.then(() => {
-		return db.query("SELECT * FROM lectures WHERE professor=? ORDER BY state DESC, id", [req.params.name]);
+		return db.query("SELECT * FROM surveys WHERE creator=? ORDER BY state DESC, date", [req.params.name]);
 	}).then((result) => {
 		var obj = result[0];
 		res.status(200).json(obj);
@@ -91,39 +97,19 @@ app.get('/db/lectures/:name', (req, res) => {
 	});
 });
 
-/*
-/* function: get all questions
-/* GET: <server>/db/questions
-/* Response: [{"id":"<lecture_id>","course":"<course_name>","semester":"<semester>", 
-/* professor="<professor>", "title":"<actual_question>","type":"<type>","state":"<state>",
-/* "date":"<creation_date>","invite":"<question_key>", "correct":"<correct_answer>","answer_A":"<Answer_A>", 
+/**
+/* function: get one survey by invite
+/* GET: server/db/<key>
+/* Response: [{ creator="<your_name>", "title":"<actual_question>",
+/* "type":"<type>","state":"<state>", "date":"<creation_date>",
+/* "invite":"<question_key>", "correct":"<correct_answer>","answer_A":"<Answer_A>", 
 /* "answer_B":"<Answer_B>", "answer_C":"<Answer_C>", 
-/* "answer_D":"<Answer_D>"}, ...]
+/* "answer_D":"<Answer_D>"}]
 /* Expected Code: 200 Ok
 */
-app.get('/db/questions', (req, res) => {
+app.get('/db/:key', (req, res) => {
 	con.then(() => {
-		return db.query("SELECT * FROM questions ORDER BY state, date DESC");
-	}).then((result) => {
-		var obj = result[0];
-		res.status(200).json(obj);
-	}).catch((err) => {
-		console.log(err);
-		res.status(400).send();
-		throw (err);
-	});  
-});
-
-/*
-/* function: get one lecture by invite
-/* GET: <server>/db/lectures/<key>
-/* Response: [{"id":"<lecture_id>","course":"<course_name>","semester":"<semester>", 
-/* professor="<professor>", "fullname":"<lecture_name>"}]
-/* Expected Code: 200 Ok
-*/
-app.get('/db/questions/:key', (req, res) => {
-	con.then(() => {
-		return db.query("SELECT * FROM questions q,lectures l WHERE  q.invite=? and l.state=1 and q.state=1 and l.id=q.id and l.professor=q.professor and l.course=q.course", [req.params.key]);
+		return db.query("SELECT * FROM surveys sv WHERE  sv.invite=? and sv.state=1", [req.params.key]);
 	}).then((result) => {
 		var obj = result[0];
 		if (result[0].length == 0) {
@@ -140,19 +126,15 @@ app.get('/db/questions/:key', (req, res) => {
 })
 
 /**
-/*	function: start one question
-/*	POST: server/db/questions/start?name=<your_professor_name>&id=<id>&course=<course>&key=<invite>
+/*	function: start one survey
+/*	POST: server/db/start?name=<your_name>&key=<invite>
 /*	Response: no body, 200 Ok
 */
-app.post('/db/questions/start', (req, res) => {
+app.post('/db/start', (req, res) => {
 	con.then(() => {
-		return db.query("UPDATE lectures SET state = 0 WHERE professor=?;", [req.query.name]);
+		return db.query("UPDATE surveys SET state = 0 WHERE creator=?;", [req.query.name]);
 	}).then(() => {
-		return db.query("UPDATE lectures SET state = 1 WHERE professor=? and id=? and course=?;", [req.query.name,req.query.id,req.query.course]);
-	}).then(() => {
-		return db.query("UPDATE questions SET state = 0 WHERE professor=?;", [req.query.name]);
-	}).then(() => {
-		return db.query("UPDATE questions SET state = 1 WHERE professor=? and id=? and course=? and invite=?;", [req.query.name,req.query.id,req.query.course,req.query.key]);
+		return db.query("UPDATE surveys SET state = 1 WHERE creator=? and invite=?;", [req.query.name,req.query.key]);
 	}).then(() => {
 		res.status(200).send();
 	}).catch((err) => {
@@ -163,13 +145,13 @@ app.post('/db/questions/start', (req, res) => {
 })
 
 /**
-/*	function: stop all questions for one professor
+/*	function: stop all surveys for one creator
 /*	POST: server/db/questions/stop?name=<your_professor_name>
 /*	Response: no body, 200 Ok
 */
-app.post('/db/questions/stop', (req, res) => {
+app.post('/db/stop', (req, res) => {
 	con.then(() => {
-		return db.query("UPDATE lectures SET state = 0 WHERE professor=?;", [req.query.name]);
+		return db.query("UPDATE lectures SET state = 0 WHERE creator=?;", [req.query.name]);
 	}).then(() => {
 		return db.query("UPDATE questions SET state = 0 WHERE professor=?;", [req.query.name]);
 	}).then(() => {
@@ -182,33 +164,11 @@ app.post('/db/questions/stop', (req, res) => {
 })
 
 /**
-/*	function: add new lecture
-/*	PUT: server/db/lectures/new with body "name=<professor_name>&id=<lecture_id>&course=<course_name>&full=<fullname>"
-/*	Response: no body, 200 Ok
-*/
-app.put('/db/lectures/new', (req, res) => {
-	var id = req.body.id.toLowerCase(); var name = req.body.name.toLowerCase(); var course = req.body.course.toLowerCase(); 
-	var fullname = req.body.full; var semester = tools.calcSemester();
-	con.then(() => {
-		return db.query("INSERT INTO `lectures` (`id`, `professor`, `course`, `semester`, `fullname`) VALUES (?,?,?,?,?);", [id,name,course,semester,fullname]);
-	}).then((result) => {
-		res.status(201).send();
-	}).catch((err) => {
-		console.log(err);
-		if (JSON.stringify(err).includes("Duplicate entry"))
-			res.status(409).send();
-		else 
-			res.status(400).send();
-		throw (err);
-	}); 
-})
-
-/**
-/*	function: add new question
+/*	function: add new survey
 /*	PUT: server/db/questions/new with body "name=<professor_name>&id=<lecture_id>&course=<course_name>&title=<title>&type=<type>&correct=<correct_answer>&a=<Answer_A>&b=<Answer_B>&c=<Answer_C>&d=<Answer_D>"
 /*	Response: no body, 200 Ok
 */
-app.put('/db/questions/new', (req, res) => {
+app.put('/db/new', (req, res) => {
 	var id = req.body.id.toLowerCase(); var name = req.body.name.toLowerCase(); var course = req.body.course.toLowerCase(); 
 	var semester = tools.calcSemester(); var title = req.body.title;
 	var invite = tools.generateKey(); var date = new Date(); var type = req.body.type; var correct = req.body.correct;
@@ -229,9 +189,7 @@ app.put('/db/questions/new', (req, res) => {
 
 function resetDatabase() {
 	con.then(() => {
-		return db.query("TRUNCATE TABLE lectures");
-	}).then(() => {
-		return db.query("TRUNCATE TABLE questions");
+		return db.query("TRUNCATE TABLE surveys");
 	}).then(() => {
 		console.log("\x1b[42m\x1b[30m%s\x1b[0m", "DATABASE was successfully RESET");
 	}).catch((err) => {
