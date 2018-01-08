@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>clicktion/my_surveys</title>
+  <meta charset="utf-8"> 
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  	
+  <link rel="stylesheet" href="stylesheet.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/vue-resource"></script>
+</head>
+<body>
+<header></header>
+	<div id="app" style="width: 70%; margin: auto;">
+		<a href="/neue-umfrage">
+			<button style="margin:auto;">
+				<i class="fa fa-plus" aria-hidden="true" style="font-size:15px;"></i>
+			</button>
+		</a>
+	<h2 v-if="allSurveys == null">Keine Umfrage vorhanden</h2>
+	<p>{{status}}</p>
+	<div class="survey" v-for="i of allSurveys">
+		<h3>{{ i.title }}</h3>
+		<h5>#{{ i.id }}</h5>
+		<span>Antworten-Typ: {{i.type}}</span>
+		<span>Erstellungsdatum: {{i.date}}</span>
+		<button v-on:click="startSurvey(i.id)">START</button>
+	</div>
+	</div>
+</body>
+	  <script type="text/javascript" src="/javascript/my_surveys.js"></script>
+</html>
