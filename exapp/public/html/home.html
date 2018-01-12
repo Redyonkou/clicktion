@@ -1,68 +1,92 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Clicktion</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="../css/navbar.css">
-</head>
-<body>
-	<div id="navbar">
-		<ul>
-			<li><a href="http://localhost:3000/login" style="width:260px">Als Dozent anmelden</a></li>
-		</ul>
-	</div>
-	<div id='body_div'><br>
-	<!--TODO:	-Javascript Hooks hinzufügen
-		-pre-Element im unteren Kommentar rauswerfen
-	- Wahrscheinlich auch noch anderes -->
-	<p style="color: rgb(241,149,0); margin-bottom: 2px; text-align: center;">Hier Fragen-Key eingeben:</p> <br>
-	<div style="display:flex">
-		<div style="margin:auto;">
-		<input type="text" placeholder="Fragen-Key">
-		<button>Los!</button>
-	</div></div>
-	<!--Dieses pre-Element ist nur da zum Testen des Navigationsbalkens und wird gelöscht sobald eine Seite fertig ist, die selbst genug Inhalt hat um den Balken zu testen-->
- <!--<pre>d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-		d
-	</pre>--></div>
+  <title>clicktion</title>
+  <meta charset="utf-8">
+  <!--Google Client-ID integration-->
+  <meta name="google-signin-client_id" content="933668699455-rg2ubpr3cb04chop74ddr6j8blcs4bat.apps.googleusercontent.com">
+  <!--Bootstrap 4 integration-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+  <!--Google Platform Library integration-->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!-- Background-color changing to dark one-->
+<style>
+body {
+	background-color: #1b2524;
+
+}
+</style>
+  </head>
+  <!-- <nav class="navbar navbar-expand-sm bg-warning navbar-dark -->
+
+  <body>
+
+  	 <!-- Navigationbar -->
+<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #f19500">
+  <ul class="navbar-nav">
+  	<a class="navbar-brand" href="#">Clicktion</a>
+ 
+    <li class="nav-item"> <!-- Just add active to activate the link e.g. "navbar-nav active" -->
+      <a class="nav-link" href="#">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Survey</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Livefeed</a>
+    </li>
+    <li class="nav-item">
+	<button type="button" class="btn btn-outline-dark" span="d-flex align-items-start">Enter as Student</button>
+	</li>
+	<li class="nav-item">
+		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+	</li>
+	
+
+</nav>
+<!--  -->
+
+<br>
+
+<br>
+<script>
+	function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  
+}
+
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://http://localhost:3000');
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onload = function() {
+  console.log('Signed in as: ' + xhr.responseText);
+};
+xhr.send('idtoken=' + id_token);
+var GoogleAuth = require('google-auth-library');
+var auth = new GoogleAuth;
+var client = new auth.OAuth2(CLIENT_ID, '', '');
+client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
+    function(e, login) {
+      var payload = login.getPayload();
+      var userid = payload['sub'];
+      // If request specified a G Suite domain:
+      //var domain = payload['hd'];
+    });
+</script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+
 </body>
 </html>

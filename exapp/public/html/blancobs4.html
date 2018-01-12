@@ -42,43 +42,48 @@ body {
     <li class="nav-item">
       <a class="nav-link" href="#">Livefeed</a>
     </li>
-    <!--NOT NEEDED YET
- <li class="nav-item">
- 	<input style="margin-top:"  type="text" placeholder="Username"/>
-</li>
-<li class="nav-item">
-	<input style="margin-top:" type="text" placeholder="Password"/>
-</li>
--->
+    <li class="nav-item">
+	<button type="button" class="btn btn-outline-dark" span="d-flex align-items-start">Enter as Student</button>
+	</li>
 	<li class="nav-item">
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
 	</li>
-
+	
 
 </nav>
+<!--  -->
+
 <br>
-<div class="g-signin2" data-onsuccess="onSignIn" data-gapiscan="true" data-onload="true"></div>
+
 <br>
-<div id="my-signin2"></div>
-  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
+<script>
+	function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  
+}
+
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://http://localhost:3000');
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onload = function() {
+  console.log('Signed in as: ' + xhr.responseText);
+};
+xhr.send('idtoken=' + id_token);
+var GoogleAuth = require('google-auth-library');
+var auth = new GoogleAuth;
+var client = new auth.OAuth2(CLIENT_ID, '', '');
+client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
+    function(e, login) {
+      var payload = login.getPayload();
+      var userid = payload['sub'];
+      // If request specified a G Suite domain:
+      //var domain = payload['hd'];
+    });
+</script>
 
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
