@@ -6,9 +6,9 @@ module.exports = {
 	calcServerDate: () => {
     var date = new Date();
 		return new Date();
-  },
+  	},
 
-  generateKey: () => {
+	generateKey: () => {
   	var i = 0;
 		var code = "";
 		do {

@@ -1,0 +1,64 @@
+		.survey {
+			background-color: rgb(53,63,62);
+			margin-bottom: 20px;
+			text-align: center;
+			border-radius: 5px;
+			overflow: hidden;
+			border-bottom: 3px solid rgb(43,53,52);
+		}
+		.survey-subelem {
+			color:rgb(201,212,210);
+			height:35px;
+			display: inline-block;
+			float: left;
+			margin-top: -10px;
+			margin-right: 5px;
+			padding-left: 5px;
+			width:20%;
+			padding-right: 10px;
+			overflow: hidden;
+			border-right: 1px solid rgb(73,83,82);
+			max-width: 100px;
+		}
+		[class=survey] > h3 {
+			margin-top: 0px;
+			background-color:rgb(73,83,82);
+			color:orange;
+			min-height:50px;
+		}
+		[class=survey] > button {
+			color:black;
+			background-color: orange;
+			float: right;
+			height:35px;
+			width:80px;
+			border:none;
+			border-radius: 2px;
+			margin-top:-10px;
+		}
+		.new-survey-btn {
+			margin: auto;
+			color:rgb(53,63,62);
+			background-color:orange;
+			border:none;
+			border-radius: 3px;
+			height:35px;
+			width:80px;
+			font-size: 25px;
+			line-height: 15px;
+			border-bottom: 3px solid rgb(201,109,0);
+		}
+		.status-text {
+			background-color: rgb(10,100,200);
+			color:white;
+			position: fixed;
+			top:50px;
+			right:0px;
+			font-size: 20px;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			border-radius: 5px 2px 2px 5px;
+			box-shadow: 0 0 5px rgb(5, 50, 100);
+		}

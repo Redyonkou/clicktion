@@ -21,9 +21,10 @@
   },
   "homepage": "https://github.com/Redyonkou/clicktion#readme",
   "dependencies": {
+    "body-parser": "latest",
     "express": "^4.16.2",
     "mysql2": "latest",
-    "body-parser": "latest",
-    "node-schedule": "latest"
+    "node-schedule": "latest",
+    "googleapis": "latest"
   }
 }

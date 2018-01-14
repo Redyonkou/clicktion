@@ -1,0 +1,52 @@
+* {
+	font-family: 'Courier New';
+}
+
+body {
+	background-color:#1b2524;
+	color:#c9d4d2;
+}
+
+#app, #content {
+	margin:auto;
+	width:80%;
+}
+
+ul {
+	 list-style-type: none;
+}
+
+/*li[class="nav-item"] {
+	margin-top: 8px;
+	  list-style-type: none;
+	  margin-left: 20px;
+}*/
+
+h1, h2, h3 {
+	color:orange;
+}
+
+.btn-class {
+	color:#1b2524 !important;
+	background-color: rgb(221,129,0) !important;
+	border:none !important;
+	border-radius: 3px !important;
+	border-bottom: 3px solid rgb(191,99,0) !important;
+}
+
+.btn-class-inverted {
+	color: orange!important;
+	background-color: rgb(57,67,66)!important;
+	border:none !important;
+	border-radius: 3px !important;
+	border-bottom: 3px solid rgb(27,37,36)!important;
+}
+
+.btn-class:hover, .btn-class:active, .btn-class:focus {
+	color:#1b2524 !important;
+	background-color: rgb(241,149,0) !important;
+	border:none !important;
+	border-radius: 3px !important;
+	border-bottom: 3px solid rgb(211,119,0) !important;
+	box-shadow: 0 0 2px orange;
+}
