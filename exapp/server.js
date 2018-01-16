@@ -43,11 +43,6 @@ app.get('/time', (req, res) => {
 
 /*----------------------------------------------------------*/
 
-
-
-
-
-
 // always last get-handler! 
 app.get('*', (req, res) => {
  	res.status(404).sendFile(__dirname + '/public/html/error.html');

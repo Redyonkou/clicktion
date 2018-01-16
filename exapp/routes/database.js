@@ -131,7 +131,7 @@ router.put('/new', (req, res) => {
 	var answers = [req.body.a,req.body.b,req.body.c,req.body.d];
 	answers = tools.normalizeAnswers(answers,correct_answer);
 	console.log(answers+" - "+correct_answer);
-	if (answers != null){
+	if (false){
 	con.then(() => {
 		return db.query("INSERT INTO `surveys` (`creator`, `id`, `title`, `date`, `type`, `correct_answer`, `answer_A`, `answer_B`, `answer_C`, `answer_D`) VALUES (?,?,?,?,?,?,?,?,?,?);", [name,id,title,date,type,correct_answer,answers[0],answers[1],answers[2],answers[3]]);
 	}).then((result) => {
