@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const tools = require('./tools');
 const database = require('./routes/database.js');
 const schedule = require('node-schedule');
+const socket = require('socket.io');
 var activeChannels = [];
 var app = express();
 var google = require('googleapis');
+var server=require('http').createServer(app);
+var io = socket(server);
 
 /*----------------------------------------------------------*/
 
@@ -37,8 +40,27 @@ app.get('/neue-umfrage', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/new_survey.html');
 });
 
+app.get('/survey', (req, res) => {
+	res.status(200).sendFile(__dirname + '/public/html/umfrage.html');
+});
+
 app.get('/time', (req, res) => {
 	res.status(200).send(tools.calcServerDate());
+});
+
+/*----------------------------------------------------------*/
+
+io.sockets.on('connection', (socket) => {
+	console.log('new connection: ' + socket.id);
+
+	socket.on('surveykey', key => {
+		socket.join(key);
+		console.log("User "+socket.id+" joint Raum "+key);
+	});
+
+	socket.on('disconnect', function(){
+		console.log('user ' + socket.id + ' disconnected');
+	});
 });
 
 /*----------------------------------------------------------*/
@@ -53,6 +75,6 @@ app.post('*', (req, res) => {
  	res.status(400).sendFile(__dirname + '/public/html/error.html');
 }); 
 
-app.listen(3000, function () {
+server.listen(3000, function () {
   console.log('server listening on port 3000!');
 });

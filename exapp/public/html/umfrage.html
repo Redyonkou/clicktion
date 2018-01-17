@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>clicktion</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-resource"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="../javascript/umfrage.js"></script>
+<style>
+body {
+	background-color: #1b2524;
+}
+
+.antwortenbtn {
+	margin-bottom:15px; 
+	white-space:normal;
+}
+</style>
+</head>
+<body>
+	<div id="navbar">
+		<ul>
+			<li><a href="#" style="width:120px">Home</a></li>
+			<li><a href="#" style="width:120px">Umfrage</a></li>
+			<li><a href="#" style="width:120px">Livefeed</a></li>
+		</ul>
+	</div>
+	<div id='body_div'><br>
+		<div class="container">
+			<div class="card" id="umfrage">
+				<div class="card-header" style="text-align:center">
+						<h1>{{frage}}</h1>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<button id="btn1" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">{{antworten[0]}}</button>		
+						<span class="d-none d-md-block col-1"></span>	
+						<button id="btn2" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">{{antworten[1]}}</button>
+						</div>
+						<div id="secondrow" class="row">
+						<button id="btn3" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">{{antworten[2]}}</button>
+						<span id="span2" class="d-none d-md-block col-1"></span>
+						<button id="btn4" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">{{antworten[3]}}</button>
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
