@@ -23,8 +23,11 @@
   "dependencies": {
     "body-parser": "latest",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "googleapis": "latest",
     "mysql2": "latest",
     "node-schedule": "latest",
-    "googleapis": "latest"
+    "passport-google-oauth": "^1.0.0",
+    "socket.io": "latest"
   }
 }
