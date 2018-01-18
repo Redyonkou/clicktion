@@ -1,6 +1,6 @@
 var app = new Vue ({
   el: "#app",
-	data: {
+  data: {
     Alpha: ['a', 'b', 'c', 'd'],
     type: 1,
     title: undefined,
@@ -13,7 +13,7 @@ var app = new Vue ({
     {'id':'d', 'text':null, 'isActive': false}],
     token: "",
     isSaving: false,
-    status: "",
+    status: null,
     saveAction: "stay"
   }, 
   methods: {
@@ -29,19 +29,19 @@ var app = new Vue ({
       console.log(response);
       this.$data.status = "Umfrage wurde erfolgreich gespeichert"
       if (this.$data.saveAction == "stay"){
-      	this.resetData();
+        this.resetData();
         this.$data.isSaving = false;
       } else {
-      	window.location.href = "/home";
+        window.location.href = "/home";
       }
     })
     .catch(function(err) {
-    	console.log(err);
-    	alert("Es ist ein Fehler beim Speichern aufgetreten!");
-    	this.$data.status = "Umfrage konnte nicht gespeichert werden!"
-    	this.$data.isSaving = false;
+      console.log(err);
+      alert("Es ist ein Fehler beim Speichern aufgetreten!");
+      this.$data.status = "Umfrage konnte nicht gespeichert werden!"
+      this.$data.isSaving = false;
     })
-	},
+  },
 
   // function: generates survey-object ready to be sent to the server
   buildRequestObject: function() {
@@ -69,7 +69,7 @@ var app = new Vue ({
   },
 
   // function: maps empty strings to null
-	buildAnswers: function() {
+  buildAnswers: function() {
     this.$data.answers = this.$data.answers.map(function(x) {
       if(x.text != null && x.text.length == 0){
         return {'id':x.id, 'text':null, 'isActive':x.isActive};
@@ -77,23 +77,23 @@ var app = new Vue ({
         return x;
       }
     })
-	},
+  },
 
-	// function: marks the correct answer
-	setCorrectAnswer: function(x, str) {
+  // function: marks the correct answer
+  setCorrectAnswer: function(x, str) {
     this.buildAnswers();
-		this.$data.correct = str;
+    this.$data.correct = str;
     var j = 0;
-		for (i of this.$data.answers){
+    for (i of this.$data.answers){
       // x is already active so deactivate it!
-			if (i == this.$data.answers[x] && i.isActive){
+      if (i == this.$data.answers[x] && i.isActive){
         this.$data.correct = undefined;
-				i.isActive=false;
-			} 
+        i.isActive=false;
+      } 
       // x is not active but i is so leave i activated
       else if (i.isActive && this.$data.answers[x].text == null) {
-				i.isActive=true;
-			} 
+        i.isActive=true;
+      } 
       // x is not null so activate it!
       else if (i == this.$data.answers[x] && i.text != null){
         i.isActive=true;
@@ -102,16 +102,16 @@ var app = new Vue ({
         i.isActive=false;
       }
       j++;
-		}
-	},
+    }
+  },
 
-	resetData: function() {
-		this.$data.correct = undefined;
-		this.$data.title = undefined;
-		this.$data.answers = this.$data.answers.map(function(x) {
-			return {'id':x.id, 'text':null, 'isActive':false};
-		});
-	}
+  resetData: function() {
+    this.$data.correct = undefined;
+    this.$data.title = undefined;
+    this.$data.answers = this.$data.answers.map(function(x) {
+      return {'id':x.id, 'text':null, 'isActive':false};
+    });
+  }
 }
 });
 function onSignIn(googleUser) {

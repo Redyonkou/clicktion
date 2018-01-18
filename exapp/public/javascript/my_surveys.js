@@ -35,8 +35,6 @@ startSurvey: function(key) {
 
 displayStatus: function(str) {
 	this.$data.status = str;
-	if (str != null)
-		setTimeout(function () { this.$data.status = null }.bind(this), 3000)
 }
 }	
 });
