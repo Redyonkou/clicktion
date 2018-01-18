@@ -2,59 +2,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>clicktion</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <meta charset="utf-8">
+  <title>clicktion</title>
   <!--Google Client-ID integration-->
   <meta name="google-signin-client_id" content="933668699455-rg2ubpr3cb04chop74ddr6j8blcs4bat.apps.googleusercontent.com">
-  <!--Bootstrap 4 integration-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+ 
+ <!-- Bootstrap CDN -->
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!--fontawesome-->
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+<!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
 
   <!--Google Platform Library integration-->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-<!-- Background-color changing to dark one-->
-<style>
-body {
-	background-color: #1b2524;
-
-}
-</style>
   </head>
   <!-- <nav class="navbar navbar-expand-sm bg-warning navbar-dark -->
 
   <body>
+  	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 
-  	 <!-- Navigationbar -->
-<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #f19500">
-  <ul class="navbar-nav">
-  	<a class="navbar-brand" href="#">Clicktion</a>
- 
-    <li class="nav-item"> <!-- Just add active to activate the link e.g. "navbar-nav active" -->
-      <a class="nav-link" href="#">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Survey</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Livefeed</a>
-    </li>
-    <li class="nav-item">
-	<button type="button" class="btn btn-outline-dark" span="d-flex align-items-start">Enter as Student</button>
-	</li>
-	<li class="nav-item">
-		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	</li>
-	
+ <!--Navbar css file -->
+  <link href="css/costom.css" rel="stylesheet">
 
-</nav>
-<!--  -->
+<!-- Navbar -->
+
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">clicktion</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Surverys</a></li>
+      <li><a href="#">Livefeed</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
+    </ul>
+  </div>
+</nav> 
 
 <br>
+<style>
+.my-navbar {
+	background-color: #f19500;
+	border-radius: 5;
+	border:2;
+}
 
+.my-navbar .navbar-default .navbar-nav>.active>a, .navbar default .navbar-nav>.active>a:active {
+	background: #e74c3c;
+}
+.navbar-default {
+	background-color: #f19500;
+	border-color: #f19500;
+	border-radius: 0;
+}
+
+.navbar-default.navbar-brand,
+.navbar-default.navbar-brand:hover,
+.navbar-default.navbar-brand:focus {
+	color: #fff;
+}
+
+.navbar-default.nabar-nav>li>a{
+	color: #fff;
+}
+
+.navbar-default.nabar-nav>li>a:hove,
+.navbar-default.nabar-nav>li>a:focus{
+	background-color:#428bca;
+}
+
+.navbar-default.nabar-nav>.active>a:hover,
+.navbar-default.nabar-nav>.active>a:focus {
+	color: #fff;
+	background-color: #428bca;
+}
+
+.navbar-default.navbar-text {
+	color: #fff;
+}
+
+.navbar-default.nabar-toggle {
+	border-color: #428bca;
+}
+
+.navbar-default.nabar-toggle:hover,
+.navbar-default.nabar-toggle:focus{
+	background-color: #428bca;
+}	
+
+</style>
+<br>
+
+<div class="container">
+<nav class="my-navbar navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="my-navabar">
+		<span class="sr-only">clicktion</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
+	<a href="#" class="navbar-brand">clicktion</a>
+
+	</div>
+	<div class="collapse navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a href="#"><span class="glyphicon glyphicon-home">Home</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-stats">Survey</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-envelope">Livefeed</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-user">Student Login</a></li>
+			<li><a href="#"><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
+			</ul>
+  </div>
+</nav>
+</div>
+<br>
+
+<br>
+<br>
+
+<br>
+<p>Th-large icon on a button:
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-th-large"></span> Th Large
+        </button>
+      </p>
 <br>
 <script>
 	function onSignIn(googleUser) {

@@ -2,108 +2,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>clicktion</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <meta charset="utf-8">
+  <title>clicktion</title>
   <!--Google Client-ID integration-->
   <meta name="google-signin-client_id" content="933668699455-rg2ubpr3cb04chop74ddr6j8blcs4bat.apps.googleusercontent.com">
-  <!--Bootstrap 4 integration-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-<!--fontawesome-->
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+ 
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <!-- Bootstrap CDN -->
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
 
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
   <!--Google Platform Library integration-->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-<!-- Background-color changing to dark one -->
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-resource"></script>
+
+
+  	
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script> 
+</head>
+<body>
+
+
+
+ <!--Navbar css file -->
+
+<!-- Navbar -->
+
 <style>
-body {
 
-	background-color: #1b2524;
 
+.my-navbar {
+	background-color: #f19500;
+	border-radius: 5;
+	border:2;
+}
+
+.panel-deafult {
+	background-color: #f19500;
 }
 </style>
-  </head>
-  <!-- <nav class="navbar navbar-expand-sm bg-warning navbar-dark -->
 
-  <body>
 
-  	 <!-- Navigationbar -->
-<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #f19500">
-  <ul class="navbar-nav"><!-- Just add active to activate the link e.g. "navbar-nav active" -->
-  	<a class="navbar-brand" href="#">Clicktion</a>
- 
-    <li class="nav-item"> 
-      <a class="nav-link" href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
 
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Survey</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Livefeed</a>
-    </li>
-    <li class="nav-item">
-	<button type="button" class="btn btn-outline-dark" span="d-flex align-items-start">Enter as Student</button>
-	</li>
-	<li class="nav-item">
-		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	</li>
-	<li class="nav-item">
-		<a href="#" ><i class="fa fa-home" aria-hidden="true"></i></a>
-	</li>
-
-	
-
+<nav class="my-navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">clicktion</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="error.html"><span class="glyphicon glyphicon-home"> Home</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-stats"> Survey</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-envelope"> Livefeed</a></li>
+			</ul>
+		</div>
+	</div>
 </nav>
 
 <br>
+<br>
+<br>
+<br>
 
 <br>
 <br>
+<br>
+<div id="mycontent" class="container-fluid">
+	<div class="row">
+		<div class="col-sm-4"></div> 
+		<div class="col-sm-4">
+			<button type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#demo">
+			  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Click here to create your own survey!
+			</button>
+			<div id="demo" class="collapse">
+				<h1> Click the Google Sign-in button, to enter the survey creation area!</h1>
+			</div>
+			<button type="button" class="btn btn-default btn-lg">
+  				<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Click to enter a survey with your key!
+			</button>
+</div>
+</div>
+</div>
+<br>
+
+
+				<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		
 
 <br>
-<p>Th-large icon on a button:
-        <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-th-large"></span> Th Large
-        </button>
-      </p>
-<br>
-<script>
-	function onSignIn(googleUser) {
-  var id_token = googleUser.getAuthResponse().id_token;
-  
-}
 
-var xhr = new XMLHttpRequest();
-xhr.open('POST', 'https://http://localhost:3000');
-xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-xhr.onload = function() {
-  console.log('Signed in as: ' + xhr.responseText);
-};
-xhr.send('idtoken=' + id_token);
-var GoogleAuth = require('google-auth-library');
-var auth = new GoogleAuth;
-var client = new auth.OAuth2(CLIENT_ID, '', '');
-client.verifyIdToken(
-    token,
-    CLIENT_ID,
-    // Or, if multiple clients access the backend:
-    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
-    function(e, login) {
-      var payload = login.getPayload();
-      var userid = payload['sub'];
-      // If request specified a G Suite domain:
-      //var domain = payload['hd'];
-    });
-</script>
+<br>
+<br>
+<br>
+<br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3">
+			<button class="btn btn-primary" data-toggle="collapse" data-target="#demo1"> Click me</button>
+			<div class="collapse" id="demo1">
+				Bla bla bla
+			</div>
+		</div> 
+	</div>
+</div>
+<br>
+
 
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-
+<script type="text/javascript" src="/javascript/auth.js"></script>
 
 </body>
 </html>
