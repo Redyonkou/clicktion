@@ -1,9 +1,16 @@
+/**
+/* name: database.js
+/* function: process database requests
+/* author: jojahn
+/* created on: 01.2018
+*/
+
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql2/promise');
 const tools = require('../tools');
 const schedule = require('node-schedule');
-const host = 'localhost';
+const host = 'mysql';
 var db, con;
 
 con = mysql.createConnection({
@@ -48,7 +55,7 @@ router.get('/all', (req, res) => {
 
 /**
 /* function: get all surveys by creator
-/* GET: server/db/my
+/* GET: server/db/my with Header Authorization
 /* Response: [{ creator="<your_name>", "title":"<actual_question>",
 /* "type":"<type>","state":"<state>", "date":"<creation_date>",
 /* "id":"<question_key>", "correct":"<correct_answer>","answer_A":"<Answer_A>", 
