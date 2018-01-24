@@ -30,16 +30,16 @@
 		</ul>
 	</div>
 	<div id="body_div"><br>
-		<div class="container" style="text-align:center">
+		<div class="container" style="text-align:center" v-if="key == undefined">
 			<h3>Eine Umfrage aufrufen:</h3>
 			<div class="col" style="display:flex">
 				<div style="margin:auto">
-					<input id="keysearchbar" type="text" placeholder="Umfragen-Key">
+					<input id="keysearchbar" type="text" placeholder="Umfragen-Key" v-model="key">
 					<button class="btn btn-secondary" v-on:click="setKeyAndRequest()">Suchen</button>
 				</div>
 			</div>
 		</div>
-		<div class="container" id="umfrage" style="margin-top:10px; margin-bottom:10px">
+		<div class="container" v-if="akey != undefined" id="umfrage" style="margin-top:10px; margin-bottom:10px">
 			<div class="card" >
 				<div class="card-header" style="text-align:center">
 					<h1>{{frage}}</h1>

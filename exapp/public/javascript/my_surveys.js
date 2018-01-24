@@ -8,11 +8,11 @@
 var app = new Vue({
 	el: "#app",
 	data: {
-		allSurveys: null,
+		allSurveys: undefined,
 		key: "",
 		status: null,
 		name: "test",
-		token: ""
+		token: undefined
 	},
 	methods: {
 
@@ -22,21 +22,20 @@ var app = new Vue({
 			Vue.http.headers.common['Authorization'] = 'Bearer ' + token;
 			this.$http.get('/db/my')
 				.then(function(response) {
+					console.log(response);
 					this.$data.allSurveys = response.body;
 					if (response.body.length != 0)
 						this.displayStatus("Alle Umfragen wurden geladen");
 				})
 				.catch(function(err) {
+					this.$data.allSurveys = null;
 					this.displayStatus("Umfragen konnten nicht geladen werden!");
 				})
 		},
 
-<<<<<<< HEAD
 displayStatus: function(str) {
 	this.$data.status = str;
-}
-}	
-=======
+},
 		// start one survey by key
 		startSurvey: function(key) {
 			Vue.http.headers.common['Authorization'] = 'Bearer ' + this.$data.token;
@@ -54,7 +53,6 @@ displayStatus: function(str) {
 			this.$data.status = str;
 		}
 	}
->>>>>>> 3fee582521bd981e206e33e8ba353ebc71f7ad67
 });
 
 function onSignIn(googleUser) {

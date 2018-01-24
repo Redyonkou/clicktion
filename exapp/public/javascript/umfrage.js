@@ -18,7 +18,8 @@ el: "#body_div",
 data: {
   frage: "Frage wird geladen...",
   antworten: [],
-  fragentyp: "0"
+  fragentyp: "0",
+  akey: key
 },
 created: function(){
   if(key!=null){
@@ -29,11 +30,12 @@ methods: {
   fetchData: function(){
     this.frage="Frage wird geladen...";
     //this.$http.get(server+"/db/all").then(response => {
-    this.$http.get(server+"/db/survey?id="+key).then(response => {
+    this.$http.get(server+"/db/survey?id="+this.$data.akey).then(response => {
       this.addAnswers(response.body[0]);
     }, response => {this.frage = "Fehler beim Laden der Frage. Fehlercode: " + response.status + " " + response.statusText;})
   },
   addAnswers: function(resdata){
+    console.log(resdata);
     this.fragentyp=resdata.type;
     this.frage=resdata.title;
     if(this.fragentyp=="clicker"){

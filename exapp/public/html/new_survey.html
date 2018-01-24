@@ -19,29 +19,34 @@
 </head>
 <body>
 
-     <!-- Navigationbar -->
-<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #f19500">
+<nav class="my-navbar navbar-default navbar-fixed-top" style="margin-bottom: 200px;position: fixed;">
   <div class="container-fluid">
-  <ul class="navbar-nav">
-    <a class="navbar-brand" href="#">Clicktion</a>
-
-    <li class="nav-item"> 
-      <a class="active" href="/home"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
-    </li>
-
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">clicktion</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/home"><span class="glyphicon glyphicon-home"> Home</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-stats"> Survey</a></li>
   <li class="nav-item">
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div style="display: none;" class="g-signin2" data-onsuccess="onSignIn"></div>
   </li>
-     </div>
+    </div>
+  </div>
 </nav>
-
-<form id="app" v-on:submit.prevent="saveSurvey()" autocomplete="off">
+<div id="app">
+<form id="content" v-on:submit.prevent="saveSurvey()" autocomplete="off" v-if="token != undefined">
 
 <h3>Eine neue Umfrage erstellen</h3>
 
   <div class="input-group">
     <span class="input-group-addon">Frage</span>
-    <input title="Der Titel der Frage, z.B. Was ist die Hauptstadt von Frankreich?" id="title" type="text" class="form-control" v-model="title" name="title" required="true" placeholder="Fragentext">
+    <input title="Der Titel der Frage, z.B. Was ist die Hauptstadt von Frankreich?" id="title" type="text" class="form-control"v-model="title" name="title" required="true" placeholder="Fragentext">
   </div>
 
  <p>Antwortmöglichkeiten A und B müssen zwingend ausgefüllt werden</p>
@@ -67,10 +72,10 @@
 
   <p class="status-text" v-if="status != null">{{status}}</p>
   <button v-bind:disable="isSaving ? true : false" style="margin-top:20px;" type="submit" class="btn btn-default btn-class" title="Speichern">Speichern</button>
-  <button v-on:click="saveAction='continue'" v-bind:disable="isSaving ? true : false" style="margin-top:20px;" type="submit" class="btn btn-default btn-class" title="Speichern & Fortfahren">Speichern &amp Fortfahren</button>
+  <button v-on:click="saveAction='continue'" v-bind:disable="isSaving ? true : false" style="margin-top:20px;" type="submit" class="btn btn-default btn-class" title="Speichern & Fortfahren">Speichern &amp; Fortfahren</button>
 
   </form>
-
+</div>
+  <script src="/javascript/new_survey.js"></script>
 </body>
-  <script type="text/javascript" src="/javascript/new_survey.js"></script>
 </html>
