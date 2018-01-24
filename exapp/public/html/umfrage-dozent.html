@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>clicktion</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/layout.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-resource"></script>
+  <script src="../javascript/umfrage-dozent.js"></script>
+<style>
+.antwortenbtn {
+	margin-bottom:15px; 
+	white-space:normal;
+}
+</style>
+</head>
+<body>
+	<div id="body_div"><br>
+		<div class="container" style="text-align:center">
+			<h3>Eine Umfrage aufrufen:</h3>
+			<div class="col" style="display:flex">
+				<div style="margin:auto">
+					<input id="keysearchbar" type="text" placeholder="Umfragen-Key">
+					<button class="btn btn-secondary" v-on:click="setKeyAndRequest()">Suchen</button>
+				</div>
+			</div>
+		</div>
+		<div class="container" id="umfrage" style="margin-top:10px; margin-bottom:10px">
+			<div class="card" style="text-align:center">
+				<div class="card-header" style="text-align:center">
+					<h1>{{frage}}</h1>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<button id="btn1" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">A: {{antworten[0]}}</button>		
+						<span class="d-none d-md-block col-1"></span>	
+						<button id="btn2" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">B: {{antworten[1]}}</button>
+					</div>
+					<div id="secondrow" class="row">
+						<button id="btn3" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">C: {{antworten[2]}}</button>
+						<span id="span2" class="d-none d-md-block col-1"></span>
+						<button id="btn4" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">D: {{antworten[3]}}</button>
+					</div>
+					<p>{{postmsg}}</p>
+					<div class="col" style="display:flex">
+						
+						<div style="margin:auto">
+							<button id="submitbutton" class="btn btn-primary" v-on:click="stopSurvey()">Umfrage stoppen</button>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<div class="col" style="display:flex">
+		<div style="margin:auto">
+			<button id="statbtn" class="btn btn-secondary" onclick="openStatistics()">Statistik</button>
+		</div>
+	</div>
+
+</body>
+</html>
