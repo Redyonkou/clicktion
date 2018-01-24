@@ -1,0 +1,21 @@
+.antwortenbtn {
+	margin-bottom:15px; 
+	white-space:normal;
+}
+
+.container{
+	text-align:center;
+}
+
+.col{
+	display:flex;
+}
+
+.col div{
+	margin:auto;
+}
+
+#umfrage {
+	margin-top:10px;
+	margin-bottom:10px;
+}

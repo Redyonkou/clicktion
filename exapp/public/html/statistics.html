@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../css/layout.css">
+  <link rel="stylesheet" type="text/css" href="../css/umfrage.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
@@ -18,8 +19,8 @@
 		<div class="card" id="umfrage">
 			<div class="card-header" style="text-align:center">
 				<h3>Suche nach der Statistik einer Umfrage:</h3>
-				<div class="col" style="display:flex">
-					<div style="margin:auto">
+				<div class="col">
+					<div>
 						<input id="keysearchbar" type="text" placeholder="Umfragen-Key">
 						<button class="btn btn-secondary" v-on:click="getData()">Suchen</button></div>
 				</div>
@@ -33,10 +34,10 @@
 					<div id="d-bar" class="col" style="background-color:yellow; align-self:flex-end;"></div>
 				</div>
 				<div class="row" style="text-align:center">
-					<div id="a-bg" class="col" style="background-color:darkred;">A<br>{{anzahl[0]}}</div>
-					<div id="b-bg" class="col" style="background-color:darkred;">B<br>{{anzahl[1]}}</div>
-					<div id="c-bg" class="col" style="background-color:darkred;">C<br>{{anzahl[2]}}</div>
-					<div id="d-bg" class="col" style="background-color:darkred;">D<br>{{anzahl[3]}}</div>
+					<div id="A-bg" class="col" style="background-color:darkred;">A<br>{{anzahl[0]}}</div>
+					<div id="B-bg" class="col" style="background-color:darkred;">B<br>{{anzahl[1]}}</div>
+					<div id="C-bg" class="col" style="background-color:darkred;">C<br>{{anzahl[2]}}</div>
+					<div id="D-bg" class="col" style="background-color:darkred;">D<br>{{anzahl[3]}}</div>
 				</div>		
 			</div>
 		</div>

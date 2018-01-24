@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../css/layout.css">
+  <link rel="stylesheet" type="text/css" href="../css/umfrage.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
@@ -14,32 +15,19 @@
   <script src="https://unpkg.com/vue-resource"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="../javascript/umfrage.js"></script>
-<style>
-.antwortenbtn {
-	margin-bottom:15px; 
-	white-space:normal;
-}
-</style>
 </head>
 <body>
-	<div id="navbar">
-		<ul>
-			<li><a href="#" style="width:120px">Home</a></li>
-			<li><a href="#" style="width:120px">Umfrage</a></li>
-			<li><a href="#" style="width:120px">Livefeed</a></li>
-		</ul>
-	</div>
 	<div id="body_div"><br>
-		<div class="container" style="text-align:center">
+		<div class="container">
 			<h3>Eine Umfrage aufrufen:</h3>
-			<div class="col" style="display:flex">
-				<div style="margin:auto">
+			<div class="col">
+				<div>
 					<input id="keysearchbar" type="text" placeholder="Umfragen-Key">
 					<button class="btn btn-secondary" v-on:click="setKeyAndRequest()">Suchen</button>
 				</div>
 			</div>
 		</div>
-		<div class="container" id="umfrage" style="margin-top:10px; margin-bottom:10px">
+		<div class="container" id="umfrage">
 			<div class="card" >
 				<div class="card-header" style="text-align:center">
 					<h1>{{frage}}</h1>
@@ -55,8 +43,8 @@
 						<span id="span2" class="d-none d-md-block col-1"></span>
 						<button id="btn4" class="btn btn-secondary col-12 col-md antwortenbtn" data-toggle="button" v-on:click="switchActiveBtn(this)">D: {{antworten[3]}}</button>
 					</div>
-					<div class="col" style="display:flex">
-						<div style="margin:auto">
+					<div class="col">
+						<div>
 							<button id="submitbutton" class="btn btn-primary" v-on:click="sendAnswer()">Antwort abschicken</button>
 						</div>
 					</div>
@@ -64,8 +52,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="col" style="display:flex">
-		<div style="margin:auto">
+	<div class="col">
+		<div>
 			<button id="statbtn" class="btn btn-secondary" onclick="openStatistics()">Statistik</button>
 		</div>
 	</div>
