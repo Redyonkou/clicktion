@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <title>clicktion</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/layout.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-resource"></script>
+  <script src="../javascript/statistics.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="card" id="umfrage">
+			<div class="card-header" style="text-align:center">
+				<h3>Suche nach der Statistik einer Umfrage:</h3>
+				<div class="col" style="display:flex">
+					<div style="margin:auto">
+						<input id="keysearchbar" type="text" placeholder="Umfragen-Key">
+						<button class="btn btn-secondary" v-on:click="getData()">Suchen</button></div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p style="color:red">{{errormsg}}</p>
+				<div class="row" style="height:400px">
+					<div id="a-bar" class="col" style="background-color:red; align-self:flex-end;"></div>
+					<div id="b-bar" class="col" style="background-color:blue; align-self:flex-end;"></div>
+					<div id="c-bar" class="col" style="background-color:green; align-self:flex-end;"></div>
+					<div id="d-bar" class="col" style="background-color:yellow; align-self:flex-end;"></div>
+				</div>
+				<div class="row" style="text-align:center">
+					<div id="a-bg" class="col" style="background-color:darkred;">A<br>{{anzahl[0]}}</div>
+					<div id="b-bg" class="col" style="background-color:darkred;">B<br>{{anzahl[1]}}</div>
+					<div id="c-bg" class="col" style="background-color:darkred;">C<br>{{anzahl[2]}}</div>
+					<div id="d-bg" class="col" style="background-color:darkred;">D<br>{{anzahl[3]}}</div>
+				</div>		
+			</div>
+		</div>
+	</div>	
+</body>
+</html>

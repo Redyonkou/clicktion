@@ -51,6 +51,10 @@ app.get('/survey', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/umfrage.html');
 });
 
+app.get('/statistics', (req, res) => {
+	res.status(200).sendFile(__dirname + '/public/html/statistics.html');
+});
+
 app.get('/time', (req, res) => {
 	res.status(200).send(tools.calcServerDate());
 });

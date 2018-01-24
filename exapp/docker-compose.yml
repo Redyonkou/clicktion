@@ -1,0 +1,28 @@
+version: "2"
+services: 
+  app:
+    container_name: node-clicktion
+    restart: always
+    build: .                            # build continer from .
+    volumes: 
+      - ~/clicktion/exapp:/usr/src/app
+    depends_on:
+      - mysql                           # wait for container mysql to start
+    ports:
+      - "3000:3000"
+    links:
+      - mysql                           # provide network access to `mysql`
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    volumes:
+      - ~/clicktion/database/lib:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "clicktiondb"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "dbpassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"

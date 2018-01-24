@@ -5,36 +5,40 @@ var key;
 
 
 window.onload = function(){
+$("#umfrage").hide();
+$("#statbtn").hide();
 key=getParameterByName("id");
-
+if(key!=null){
 socket.emit("surveykey", key);
-
-console.log("Fragen-ID="+key);
+}
 
 app = new Vue ({
 
-el: "#umfrage",
+el: "#body_div",
 data: {
   frage: "Frage wird geladen...",
   antworten: [],
   fragentyp: "0"
 },
 created: function(){
-  this.fetchData();
+  if(key!=null){
+    this.fetchData();
+  }
 },
 methods: {
   fetchData: function(){
-//Get-Request muss noch geändert werden. Sucht im Moment nach allen Umfragen und nimmt die erste aus Testzwecken 
+    this.frage="Frage wird geladen...";
     //this.$http.get(server+"/db/all").then(response => {
     this.$http.get(server+"/db/survey?id="+key).then(response => {
       this.addAnswers(response.body[0]);
-    }, response => {this.frage = "Fehler beim Laden der Frage. Fehlercode: " + response.status + response.statusText;})
+    }, response => {this.frage = "Fehler beim Laden der Frage. Fehlercode: " + response.status + " " + response.statusText;})
   },
   addAnswers: function(resdata){
-    var zahlGerade = true;
     this.fragentyp=resdata.type;
     this.frage=resdata.title;
     if(this.fragentyp=="clicker"){
+      $("#umfrage").show();
+      $("#statbtn").show();
       var antwortanzahl=0;
       console.log(resdata);
       this.antworten.push(resdata.answer_A, resdata.answer_B, resdata.answer_C, resdata.answer_D);
@@ -54,6 +58,26 @@ methods: {
   switchActiveBtn: function(clickedbtn){
     $(".antwortenbtn").attr("aria-pressed", "false").removeClass("active");
 
+  },
+  setKeyAndRequest: function(){
+    var key = $("#keysearchbar").val();
+    this.fetchData();
+  },
+  sendAnswer: function(){
+    $("#submitbutton").attr("disabled", true);
+    var chosenAnswer="none";
+    var submitURL;
+    if($("#btn1").is(".active")) chosenAnswer="a";
+    if($("#btn2").is(".active")) chosenAnswer="b";
+    if($("#btn3").is(".active")) chosenAnswer="c";
+    if($("#btn4").is(".active")) chosenAnswer="d";
+    submitURL=server+"/db/submit?id="+key+"&answer="+chosenAnswer;
+
+    $.post(submitURL, ()=>{
+      $("#submitbutton").prop("disabled", true);
+    }).fail(()=>{
+      $("#submitbutton").prop("disabled", false);
+      });
   }
 }
 });
@@ -69,17 +93,24 @@ socket.on("connect", ()=> {
     if($("#btn4").is(".active")) chosenAnswer="d";
     submitURL=server+"/db/submit?id="+key+"&answer="+chosenAnswer;
 
-    console.log("sending chosen answer: " + chosenAnswer);
-    $.post(submitURL);
+    $.post(submitURL, ()=>{
+      $("#submitbutton").prop("disabled", true);
+    }).fail(()=>{
+      $("#submitbutton").prop("disabled", false);
+      });
   });
 });
 
 function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function openStatistics(){
+  window.open(server+"/statistics?id="+key);
 }

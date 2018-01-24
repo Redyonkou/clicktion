@@ -1,9 +1,16 @@
+/**
+/* name: database.js
+/* function: process database requests
+/* author: jojahn
+/* created on: 01.2018
+*/
+
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql2/promise');
 const tools = require('../tools');
 const schedule = require('node-schedule');
-const host = 'localhost';
+const host = 'mysql';
 var db, con;
 
 con = mysql.createConnection({
@@ -18,6 +25,7 @@ con = mysql.createConnection({
 	console.log("\x1b[31m%s\x1b[0m", "connection to mysql-container failed!");
 });
 
+
 /**
 /* function: get all surveys
 /* GET: <server>/db/allSurveys
@@ -29,21 +37,25 @@ con = mysql.createConnection({
 /* Expected Code: 200 Ok
 */
 router.get('/all', (req, res) => {
-	con.then(() => {
-		return db.query("SELECT * FROM surveys ORDER BY creator, title");
-	}).then((result) => {
-		var obj = result[0];
-		res.status(200).json(obj);
-	}).catch((err) => {
-		console.log(err);
-		res.sendStatus(400).end();
-		throw (err);
-	}); 
+	if(db != undefined) {
+		con.then(() => {
+			return db.query("SELECT * FROM surveys ORDER BY creator, title");
+		}).then((result) => {
+			var obj = result[0];
+			res.status(200).json(obj);
+		}).catch((err) => {
+			console.log(err);
+			res.sendStatus(400).end();
+			throw (err);
+		}); 
+	} else {
+		res.sendStatus(500).end();
+	}
 });
 
 /**
 /* function: get all surveys by creator
-/* GET: server/db/my
+/* GET: server/db/my with Header Authorization
 /* Response: [{ creator="<your_name>", "title":"<actual_question>",
 /* "type":"<type>","state":"<state>", "date":"<creation_date>",
 /* "id":"<question_key>", "correct":"<correct_answer>","answer_A":"<Answer_A>", 
@@ -52,19 +64,26 @@ router.get('/all', (req, res) => {
 /* Expected Code: 200 Ok
 */
 router.get('/my', (req, res) => {
+	//TO-DO: call decryption function!
+	//var name = auth.getUser(req.get('Authorization'));
 	var name = "riko";
 	console.log(req.get('Authorization'));
-	//TO-DO: call decryption function!
-	con.then(() => {
-		return db.query("SELECT * FROM surveys WHERE creator=? ORDER BY state DESC, date", [name]);
-	}).then((result) => {
-		var obj = result[0];
-		res.status(200).json(obj);
-	}).catch((err) => {
-		console.log(err);
-		res.sendStatus(400).end();
-		throw (err);
-	});
+	if(db != undefined && name != undefined) {
+		con.then(() => {
+			return db.query("SELECT * FROM surveys WHERE creator=? ORDER BY state DESC, date", [name]);
+		}).then((result) => {
+			var obj = result[0];
+			res.status(200).json(obj);
+		}).catch((err) => {
+			console.log(err);
+			res.sendStatus(400).end();
+			throw (err);
+		});
+	} else if (db == undefined) {
+		res.sendStatus(500).end();
+	} else {
+		res.sendStatus(403).end();
+	}
 });
 
 /**
@@ -74,20 +93,27 @@ router.get('/my', (req, res) => {
 /* 	Expected Code: 200 Ok
 */
 router.post('/start', (req, res) => {
+	//TO-DO: call decryption function!
+	//var name = auth.getUser(req.get('Authorization'));
 	var name = "riko";
 	console.log(req.get('Authorization'));
-	//TO-DO: call decryption function!
-	con.then(() => {
-		return db.query("UPDATE surveys SET state = 0 WHERE creator=? and state != 2;", [name]);
-	}).then(() => {
-		return db.query("UPDATE surveys SET state = 1 WHERE creator=? and id=?;", [name,req.query.id]);
-	}).then(() => {
-		res.sendStatus(200).end();
-	}).catch((err) => {
-		console.log(err);
-		res.sendStatus(400).end();
-		throw (err);
-	});
+	if(db != undefined && name != undefined) {
+		con.then(() => {
+			return db.query("UPDATE surveys SET state = 0 WHERE creator=? and state != 2;", [name]);
+		}).then(() => {
+			return db.query("UPDATE surveys SET state = 1 WHERE creator=? and id=?;", [name,req.query.id]);
+		}).then(() => {
+			res.sendStatus(200).end();
+		}).catch((err) => {
+			console.log(err);
+			res.sendStatus(400).end();
+			throw (err);
+		});
+	} else if (db == undefined) {
+		res.sendStatus(500).end();
+	} else {
+		res.sendStatus(403).end();
+	}
 })
 
 /**
@@ -97,20 +123,27 @@ router.post('/start', (req, res) => {
 /* 	Expected Code: 200 Ok
 */
 router.post('/stop', (req, res) => {
-	var name = "test";
-	console.log(req.get('Authorization'));
 	//TO-DO: call decryption function!
-	con.then(() => {
-		return db.query("UPDATE surveys SET state = 2 WHERE creator=? and state = 1;", [name]);
-	}).then(() => {
-		return db.query("UPDATE surveys SET state = 0 WHERE creator=? and state != 2;", [name]);
-	}).then(() => {
-		res.sendStatus(200).end();
-	}).catch((err) => {
-		console.log(err);
-		res.sendStatus(400).end();
-		throw (err);
-	});
+	//var name = auth.getUser(req.get('Authorization'));
+	var name = "riko";
+	console.log(req.get('Authorization'));
+	if(db != undefined && name != undefined) {
+		con.then(() => {
+			return db.query("UPDATE surveys SET state = 2 WHERE creator=? and state = 1;", [name]);
+		}).then(() => {
+			return db.query("UPDATE surveys SET state = 0 WHERE creator=? and state != 2;", [name]);
+		}).then(() => {
+			res.sendStatus(200).end();
+		}).catch((err) => {
+			console.log(err);
+			res.sendStatus(400).end();
+			throw (err);
+		});
+	} else if (db == undefined) {
+		res.sendStatus(500).end();
+	} else {
+		res.sendStatus(403).end();
+	}
 })
 
 /**
@@ -123,26 +156,34 @@ router.post('/stop', (req, res) => {
 /* 	Expected Code: 200 Ok
 */
 router.put('/new', (req, res) => {
-	var name = "test";
-	console.log(req.get('Authorization'));
 	//TO-DO: call decryption function!
-	var title = req.body.title; var id = tools.generateKey(); var date = tools.calcServerDate(); 
-	var type = req.body.type; var correct_answer = req.body.correct;
-	var answers = [req.body.a,req.body.b,req.body.c,req.body.d];
-	answers = tools.normalizeAnswers(answers,correct_answer);
-	console.log(answers+" - "+correct_answer);
-	if (false){
-	con.then(() => {
-		return db.query("INSERT INTO `surveys` (`creator`, `id`, `title`, `date`, `type`, `correct_answer`, `answer_A`, `answer_B`, `answer_C`, `answer_D`) VALUES (?,?,?,?,?,?,?,?,?,?);", [name,id,title,date,type,correct_answer,answers[0],answers[1],answers[2],answers[3]]);
-	}).then((result) => {
-		res.sendStatus(201).end();
-	}).catch((err) => {
-		console.log(err);
-		res.sendStatus(400).end();
-		throw (err);
-	}); 
+	//var name = auth.getUser(req.get('Authorization'));
+	var name = "riko";
+	console.log(req.get('Authorization'));
+	if(db != undefined && name != undefined) {
+		var title = req.body.title; var id = tools.generateKey(); var date = tools.calcServerDate(); 
+		var type = req.body.type; var correct_answer = req.body.correct;
+		var answers = [req.body.a,req.body.b,req.body.c,req.body.d];
+		console.log(answers);
+		answers = tools.normalizeAnswers(answers,correct_answer);
+		console.log(answers+" - "+correct_answer);
+		if (answers != null){
+			con.then(() => {
+				return db.query("INSERT INTO `surveys` (`creator`, `id`, `title`, `date`, `type`, `correct_answer`, `answer_A`, `answer_B`, `answer_C`, `answer_D`) VALUES (?,?,?,?,?,?,?,?,?,?);", [name,id,title,date,type,correct_answer,answers[0],answers[1],answers[2],answers[3]]);
+			}).then((result) => {
+				res.sendStatus(201).end();
+			}).catch((err) => {
+				console.log(err);
+				res.sendStatus(400).end();
+				throw (err);
+			});
+		} else {
+			res.sendStatus(400).end();
+		} 
+	} else if (db == undefined) {
+		res.sendStatus(500).end();
 	} else {
-		res.sendStatus(400).end();
+		res.sendStatus(403).end();
 	}
 })
 
