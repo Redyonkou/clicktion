@@ -59,6 +59,10 @@ app.get('/statistics', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/statistics.html');
 });
 
+app.get('/statistics', (req, res) => {
+    res.status(200).sendFile(__dirname + '/public/html/profile.html');
+});
+
 app.get('/time', (req, res) => {
 	res.status(200).send(tools.calcServerDate());
 });
@@ -98,7 +102,7 @@ server.listen(3000, function () {
 
 var app = express();
 app.use(Session({
-    secret: 'pizzaisnotagoodkey',
+    secret: 'MqRQvTHSjiK-b8MArGLY6G8C',
     resave: true,
     saveUninitialized: true
 }));
