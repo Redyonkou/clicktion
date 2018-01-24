@@ -17,7 +17,7 @@
 	color: #fff;
 }
 
-.navbar-default.nabar-nav>li>a:hove,
+.navbar-default.nabar-nav>li>a:hover,
 .navbar-default.nabar-nav>li>a:focus{
 	background-color:#428bca;
 }

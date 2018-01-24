@@ -51,6 +51,10 @@ app.get('/survey', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/umfrage.html');
 });
 
+app.get('/my-survey', (req, res) => {
+	res.status(200).sendFile(__dirname + '/public/html/umfrage-dozent.html');
+});
+
 app.get('/statistics', (req, res) => {
 	res.status(200).sendFile(__dirname + '/public/html/statistics.html');
 });

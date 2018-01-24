@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <meta charset="utf-8">
   <title>clicktion</title>
   <!--Google Client-ID integration-->
   <meta name="google-signin-client_id" content="933668699455-rg2ubpr3cb04chop74ddr6j8blcs4bat.apps.googleusercontent.com">
@@ -36,12 +35,9 @@
   	
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script> 
-</head>
-<body>
 
 
-
- <!--Navbar css file -->
+<!--Navbar css file -->
 
 <!-- Navbar -->
 
@@ -50,14 +46,15 @@
 
 .my-navbar {
 	background-color: #f19500;
-	border-radius: 5;
-	border:2;
 }
 
 .panel-deafult {
 	background-color: #f19500;
 }
 </style>
+
+</head>
+<body>
 
 
 
@@ -73,9 +70,9 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="error.html"><span class="glyphicon glyphicon-home"> Home</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-stats"> Survey</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-envelope"> Livefeed</a></li>
+				<li><a href="error.html"><span class="glyphicon glyphicon-home"> Home</span></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-stats"> Survey</span></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-envelope"> Livefeed</span></a></li>
 			</ul>
 		</div>
 	</div>
@@ -148,7 +145,7 @@ client.verifyIdToken(
 
 
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-<script type="text/javascript" src="/javascript/auth.js"></script>
+<script src="/javascript/auth.js"></script>
 
 </body>
 </html>

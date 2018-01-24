@@ -8,10 +8,10 @@ body {
 	padding-bottom: 10px;
 }
 
-#app {
+#content {
 	margin:auto;
 	width:80%;
-	padding-top: 40px;
+	padding-top: 100px;
 }
 
 ul {

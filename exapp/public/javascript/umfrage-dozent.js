@@ -1,5 +1,4 @@
 var app;
-var socket=io();
 var server="http://localhost:3000";
 var key;
 
@@ -8,9 +7,6 @@ window.onload = function(){
 $("#umfrage").hide();
 $("#statbtn").hide();
 key=getParameterByName("id");
-if(key!=null){
-socket.emit("surveykey", key);
-}
 
 app = new Vue ({
 
@@ -18,6 +14,7 @@ el: "#body_div",
 data: {
   frage: "Frage wird geladen...",
   antworten: [],
+  postmsg: " ",
   fragentyp: "0"
 },
 created: function(){
@@ -28,7 +25,6 @@ created: function(){
 methods: {
   fetchData: function(){
     this.frage="Frage wird geladen...";
-    //this.$http.get(server+"/db/all").then(response => {
     this.$http.get(server+"/db/survey?id="+key).then(response => {
       this.addAnswers(response.body[0]);
     }, response => {this.frage = "Fehler beim Laden der Frage. Fehlercode: " + response.status + " " + response.statusText;})
@@ -63,43 +59,21 @@ methods: {
     var key = $("#keysearchbar").val();
     this.fetchData();
   },
-  sendAnswer: function(){
-    $("#submitbutton").attr("disabled", true);
-    var chosenAnswer="none";
-    var submitURL;
-    if($("#btn1").is(".active")) chosenAnswer="a";
-    if($("#btn2").is(".active")) chosenAnswer="b";
-    if($("#btn3").is(".active")) chosenAnswer="c";
-    if($("#btn4").is(".active")) chosenAnswer="d";
-    submitURL=server+"/db/submit?id="+key+"&answer="+chosenAnswer;
-
-    $.post(submitURL, ()=>{
-      $("#submitbutton").prop("disabled", true);
-    }).fail(()=>{
-      $("#submitbutton").prop("disabled", false);
-      });
+  stopSurvey: function(){
+    this.$http.post(server+"/db/stop", {}, {
+      headers: {
+        Authorization: "" //TODO: Authorization Header hinzufügen.
+      }
+    })
+    .then(response =>{
+      this.postmsg="Stoppen der Umfrage war erfolgreich!";
+    }, response => {
+      this.postmsg="Fehler beim Laden der Frage. Fehlercode: " + response.status + " " + response.statusText;
+    })
   }
 }
 });
 }
-
-socket.on("connect", ()=> {
-  socket.on("answercollection", ()=> {
-    var chosenAnswer="none";
-    var submitURL;
-    if($("#btn1").is(".active")) chosenAnswer="a";
-    if($("#btn2").is(".active")) chosenAnswer="b";
-    if($("#btn3").is(".active")) chosenAnswer="c";
-    if($("#btn4").is(".active")) chosenAnswer="d";
-    submitURL=server+"/db/submit?id="+key+"&answer="+chosenAnswer;
-
-    $.post(submitURL, ()=>{
-      $("#submitbutton").prop("disabled", true);
-    }).fail(()=>{
-      $("#submitbutton").prop("disabled", false);
-      });
-  });
-});
 
 function getParameterByName(name, url) {
   if (!url) url = window.location.href;
