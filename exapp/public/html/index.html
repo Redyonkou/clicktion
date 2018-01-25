@@ -1,14 +1,139 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Clicktion</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>clicktion</title>
+  <!--Google Client-ID integration-->
+  <meta name="google-signin-client_id" content="933668699455-rg2ubpr3cb04chop74ddr6j8blcs4bat.apps.googleusercontent.com">
+ 
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <!-- Bootstrap CDN -->
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+
+	<link rel="stylesheet" type="text/css" href="css/layout.css">
+  <!--Google Platform Library integration-->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-resource"></script>
+
+
+  	
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script> 
+
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script src="/javascript/auth.js"></script>
+<!--Navbar css file -->
+
+<!-- Navbar -->
+
 </head>
 <body>
-<form method="post">
-	Username: <input type="text" id="username" />
-	Password: <input type="password" id="password" />
-	<input type="submit" value="Anmelden"/>
+
+
+
+<nav class="my-navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">clicktion</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/html/home.html"><span class="glyphicon glyphicon-home"> Home</span></a></li>
+				<li><a href="/html/survey.html"><span class="glyphicon glyphicon-stats"> Survey</span></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-envelope"> Livefeed</span></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<div id="mycontent" class="container-fluid">
+	<div class="row">
+		<div class="col-sm-4"></div> 
+		<div class="col-sm-4">
+			<button id="loginbut" type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#hide">
+			  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Click here to create your own survey! 
+			</button>
+			<div id="hide" class="collapse">
+				<h1> Click the Google Sign-in button, to enter the survey creation area!</h1> <div class="g-signin2" data-onsuccess="onSignIn"></div>
+			</div><
+			<button id="loginbut" type="button" class="btn btn-default btn-lg">
+  				<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Click to enter a survey with your key!
+			</button>
+		</div>
+		<div>
+			<a href="/html/home.html">krass</a>
+		</div>
+</div>
+
+<br>
+
+
+				
+		
+
+<br>
+<script>
+	function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  
+}
+
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://http://localhost:3000');
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onload = function() {
+  console.log('Signed in as: ' + xhr.responseText);
+};
+xhr.send('idtoken=' + id_token);
+var GoogleAuth = require('google-auth-library');
+var auth = new GoogleAuth;
+var client = new auth.OAuth2(CLIENT_ID, '', '');
+client.verifyIdToken(
+    token,
+    CLIENT_ID,
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
+    function(e, login) {
+      var payload = login.getPayload();
+      var userid = payload['sub'];
+      // If request specified a G Suite domain:
+      //var domain = payload['hd'];
+    });
+</script>
+
+
+
+
+  
+
 </body>
 </html>
