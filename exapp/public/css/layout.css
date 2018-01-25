@@ -52,3 +52,16 @@ h1, h2, h3 {
 	border-bottom: 3px solid rgb(211,119,0) !important;
 	box-shadow: 0 0 2px orange;
 }
+
+.my-navbar {
+	background-color: #f19500;
+}
+
+.panel-deafult {
+	background-color: #f19500;
+	}
+
+#loginbut {
+
+	padding: 80px;
+}
